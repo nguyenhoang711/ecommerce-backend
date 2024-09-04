@@ -35,15 +35,16 @@ require('winston-mongodb');
 
 const {db: {host, name, port, username, password}} = require('./config')
 const connectString = `mongodb://${username}:${password}@${host}:${port}/${name}?authSource=admin`;
-const configLogMongoDB = new transports.MongoDB({
-    level : "error",
-    db : connectString,
-    options:{
-        ignoreUndefined: true,
-        useUnifiedTopology: true
-    },
-    collection : "app-logs"
-})
+console.log(connectString);
+// const configLogMongoDB = new transports.MongoDB({
+//     level : "error",
+//     db : connectString,
+//     options:{
+//         ignoreUndefined: true,
+//         useUnifiedTopology: true
+//     },
+//     collection : "app-logs"
+// })
 
 const logger = createLogger({
     transports: [
@@ -58,7 +59,7 @@ const logger = createLogger({
         // }),
         transport,
         // save log into database
-        configLogMongoDB
+        // configLogMongoDB
     ],
     format: formatLog
 })

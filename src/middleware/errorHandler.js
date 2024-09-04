@@ -1,5 +1,5 @@
 const {Api404Error, BaseError, BusinessLogicError, Api401Error, Api403Error} = require("../core/error.response")
-const instanceDiscord = require('../configs/config.notification')
+// const instanceDiscord = require('../configs/config.notification')
 
 const logError = (err) => {
     console.error(err)
@@ -7,11 +7,11 @@ const logError = (err) => {
 
 const logErrorMiddleware = (err, req, res, next) => {
     logError(err)
-    instanceDiscord.sendToFormatCode({
-        code: req.method === 'GET' ? req.query : req.body,
-        message: `${req.get("host")}${req.originalUrl}`,
-        title: `Method: ${req.method}`,
-    })
+    // instanceDiscord.sendToFormatCode({
+    //     code: req.method === 'GET' ? req.query : req.body,
+    //     message: `${req.get("host")}${req.originalUrl}`,
+    //     title: `Method: ${req.method}`,
+    // })
     next(err)
 }
 

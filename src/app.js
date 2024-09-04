@@ -37,7 +37,7 @@ app.use(helmet.contentSecurityPolicy({
 // x content type options
 app.use(helmet.noSniff());
 // x xss protection
-app.use(helmet.xssFilter())
+app.use(helmet.xssFilter());
 // referrer policy
 app.use(helmet.referrerPolicy({
     policy: "no-referrer",
@@ -65,9 +65,9 @@ if (checkEnable(configs.db.enable)) {
 }
 
 // init redis
-if (checkEnable(configs.redis.enable)) {
-    require('./configs/config.redis')
-}
+// if (checkEnable(configs.redis.enable)) {
+//     require('./configs/config.redis')
+// }
 
 // init swagger
 const {openApi, configSwagger} = require('./configs/config.swagger')
