@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 const app = express();
 const compression = require('compression');
@@ -8,6 +9,7 @@ const {checkEnable} = require("./utils");
 
 // init middlewares
 app.use(morgan('dev'));
+app.use(cors());
 // app.use(morgan('compile'));
 // app.use(morgan('common'));
 // app.use(morgan('short'));

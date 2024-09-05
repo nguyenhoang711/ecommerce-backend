@@ -15,7 +15,9 @@ class UserService {
 
     registerUser = async ({
         email = null,
-        captcha = null
+        fullname = null,
+        password = null,
+        // captcha = null
                           }) => {
         // 1 check email exists in dbs
         const user = await userModel.findOne({email}).lean()
@@ -26,11 +28,24 @@ class UserService {
         }
 
         // 3. send token via email user
-        const result = await this.sendEmailToken({
-            email
+        // const result = await this.sendEmailToken({
+        //     email
+        // })
+        const passwordHash = await bcrypt.hash(password, 10)
+
+        const newUser = await userModel.create({
+            usr_id: crypto.randomUUID(),
+            usr_name: fullname,
+            usr_slug: 'xxxx',
+            usr_email: email,
+            usr_password: passwordHash,
+            usr_salt: 10,
+
         })
 
-        return 'OK'
+        return {
+            user: newUser
+        }
     }
 
     sendEmailToken = async ({email}) => {
