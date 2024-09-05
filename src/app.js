@@ -65,9 +65,9 @@ if (checkEnable(configs.db.enable)) {
 }
 
 // init redis
-// if (checkEnable(configs.redis.enable)) {
-//     require('./configs/config.redis')
-// }
+if (checkEnable(configs.redis.enable)) {
+    require('./configs/config.redis')
+}
 
 // init swagger
 const {openApi, configSwagger} = require('./configs/config.swagger')
@@ -103,7 +103,8 @@ app.use(returnError)
 // init factory
 const productFactories = require('./factories/products')
 console.log(productFactories)
-const notifyFactories = require('./factories/notifications')
+const notifyFactories = require('./factories/notifications');
+const { db } = require('./models/comment.model');
 console.log(notifyFactories)
 
 // init cron job

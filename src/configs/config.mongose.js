@@ -8,7 +8,6 @@ const {countConnect} = require('../helpers/check.connect');
 const MAX_POLL_SIZE = 50;
 const TIME_OUT_CONNECT = 3000;
 
-console.log(connectString)
 mongoose.set('strictQuery', true);
 
 class Database {
