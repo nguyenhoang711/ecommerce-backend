@@ -109,10 +109,10 @@ const i18n = new I18n({
 
     // Parser can be any object that responds to .parse & .stringify
     parser: JSON,
-
-    directory: path.join(__dirname, "locales")
+    directory: path.join(__dirname, 'locales')
 })
 
-i18n.translate = (text, ...parameters) => i18n.translate(text, ...parameters)
+i18n.translate = (text, ...parameters) => i18n.__.apply(i18n, [text, ...parameters]);
+
 
 module.exports = i18n

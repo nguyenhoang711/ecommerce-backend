@@ -103,6 +103,12 @@ router.use(authenticationV2)
  *     post:
  *       summary: Create product
  *       tags: [Product]
+ *       requestBody:
+ *          description: Create product info
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Product'
  *       responses:
  *         "400":
  *           $ref: '#/components/responses/400'
