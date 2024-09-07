@@ -9,14 +9,13 @@ const {createTokenPair} = require("../auth/authUtils");
 const apiKeyModel = require("../models/apikey.model");
 const {getInfoData} = require("../utils");
 const uuid = require("uuid");
-const EmailService = require('./email.service')
+const EmailService = require('./email.service');
+const { OK } = require("../core/success.response");
 
 class UserService {
 
     registerUser = async ({
         email = null,
-        fullname = null,
-        password = null,
         // captcha = null
                           }) => {
         // 1 check email exists in dbs
@@ -28,24 +27,22 @@ class UserService {
         }
 
         // 3. send token via email user
-        // const result = await this.sendEmailToken({
-        //     email
-        // })
-        const passwordHash = await bcrypt.hash(password, 10)
-
-        const newUser = await userModel.create({
-            usr_id: crypto.randomUUID(),
-            usr_name: fullname,
-            usr_slug: 'xxxx',
-            usr_email: email,
-            usr_password: passwordHash,
-            usr_salt: 10,
-
+        const result = await this.sendEmailToken({
+            email
         })
+        // const passwordHash = await bcrypt.hash(password, 10)
 
-        return {
-            user: newUser
-        }
+        // const newUser = await userModel.create({
+        //     usr_id: crypto.randomUUID(),
+        //     usr_name: fullname,
+        //     usr_slug: 'xxxx',
+        //     usr_email: email,
+        //     usr_password: passwordHash,
+        //     usr_salt: 10,
+
+        // })
+
+        return OK
     }
 
     sendEmailToken = async ({email}) => {
