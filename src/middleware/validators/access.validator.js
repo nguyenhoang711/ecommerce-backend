@@ -1,6 +1,7 @@
 const {Api403Error} = require("../../core/error.response");
 const validateLoginRequest = (req, res, next) => {
     const loginRequest = req.body
+    console.log(loginRequest)
     // check email
     if (!loginRequest.email || loginRequest.email.length < 8) {
         throw new Api403Error('Email invalid')

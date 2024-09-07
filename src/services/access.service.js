@@ -40,7 +40,7 @@ class AccessService {
             throw new Api403Error(i18n.translate('messages.error001'))
         }
 
-        if (refreshToken !== keyStore.refreshToken) throw Api401Error(i18n.translate('messages.error002'))
+        if (refreshToken !== keyStore.refreshToken) throw new Api401Error(i18n.translate('messages.error002'))
 
         // check userId
         const foundShop = await findByEmail({email})
@@ -134,7 +134,8 @@ class AccessService {
                 fields: ['_id', 'name', 'email'],
                 object: foundShop
             }),
-            tokens
+            access_token: tokens.accessToken,
+            refresh_token: tokens.refreshToken,
         }
     }
 

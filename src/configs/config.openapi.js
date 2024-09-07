@@ -211,17 +211,13 @@ const options = {
                 bearerAuth: {
                     type: 'http',
                     scheme: 'bearer',
+                    name: 'Authorization',
                     bearerFormat: 'JWT',
                 },
                 apiKey: {
                     type: 'apiKey',
                     in: 'header',
                     name: 'x-api-key'
-                },
-                refreshToken: {
-                    type: 'refreshToken',
-                    in: 'header',
-                    name: 'refresh-token'
                 }
             }
         },
@@ -229,7 +225,6 @@ const options = {
             {
                 "apiKey": [],
                 "bearerAuth": [],
-                "token": [],
             },
             {
                 "apiKey": [],
