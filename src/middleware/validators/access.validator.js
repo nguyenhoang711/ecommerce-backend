@@ -3,11 +3,11 @@ const validateLoginRequest = (req, res, next) => {
     const loginRequest = req.body
     console.log(loginRequest)
     // check email
-    if (!loginRequest.email || loginRequest.email.length < 8) {
+    if (!loginRequest.username || loginRequest.username.length < 8) {
         throw new Api403Error('Email invalid')
     }
     // check password
-    if (!loginRequest.password || loginRequest.email.password < 8) {
+    if (!loginRequest.password || loginRequest.password.length < 8) {
         throw new Api403Error('Password invalid')
     }
 

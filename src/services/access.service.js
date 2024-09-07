@@ -85,13 +85,13 @@ class AccessService {
      * 4 - Generate tokens
      * 5 - Get guide return login
      *
-     * @param email
+     * @param username
      * @param password
      * @returns {Promise<void>}
      */
-    singIn = async ({email, password}) => {
+    singIn = async ({username, password}) => {
         // 1.
-        const foundShop = await findByEmail({email})
+        const foundShop = await findByEmail({email: username})
         if (!foundShop) throw new Api403Error(i18n.translate('messages.error002'))
 
         // 2.
@@ -118,7 +118,7 @@ class AccessService {
         const {_id: userId} = foundShop
         const tokens = await createTokenPair({
             userId: userId.toString(),
-            email
+            username
         }, publicKey, privateKey)
 
         await KeyTokenService.createKeyToken({
@@ -128,14 +128,19 @@ class AccessService {
             refreshToken: tokens.refreshToken,
         })
 
-        //
+        // get user info
+        const shop = getInfoData({ fields: ['_id', 'name', 'email', 'password', 'roles'], object: foundShop})
+        console.log(shop)
         return {
-            shop: getInfoData({
-                fields: ['_id', 'name', 'email'],
-                object: foundShop
-            }),
-            access_token: tokens.accessToken,
-            refresh_token: tokens.refreshToken,
+            id: shop.id,
+            username: shop.name,
+            firstName: shop.name,
+            lastName: shop.name,
+            email: shop.email,
+            password: shop.password,
+            role: shop.roles[0],
+            token: tokens.accessToken,
+            // refresh_token: tokens.refreshToken,
         }
     }
 
