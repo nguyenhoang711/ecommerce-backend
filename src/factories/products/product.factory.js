@@ -6,7 +6,7 @@ const {NotifyTypeConstant} = require("../../constants/notify-type.constant");
 class ProductFactory {
     constructor({
                     product_name, product_thumb, product_description, product_price,
-                    product_type, product_shop, product_attributes, product_quality
+                    product_type, product_shop, product_attributes, product_quantity
                 }) {
         this.product_name = product_name
         this.product_thumb = product_thumb
@@ -15,7 +15,7 @@ class ProductFactory {
         this.product_type = product_type
         this.product_shop = product_shop
         this.product_attributes = product_attributes
-        this.product_quality = product_quality
+        this.product_quantity = product_quantity
     }
 
     // create new Product
@@ -27,7 +27,7 @@ class ProductFactory {
             const invenData = await insertInventory({
                 productId: product_id,
                 shopId: this.product_shop,
-                stock: this.product_quality
+                stock: this.product_quantity
             })
 
             // push noti to system collect

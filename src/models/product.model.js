@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    product_quality: {
+    product_quantity: {
         type: Number,
         required: true
     },

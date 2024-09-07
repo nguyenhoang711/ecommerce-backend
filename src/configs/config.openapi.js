@@ -113,7 +113,7 @@ const options = {
                 },
                 Product: {
                     type: 'object',
-                    required: ['product_name', 'product_thumb', 'product_price', 'product_quality', 'product_type', 'product_attributes'],
+                    required: ['product_name', 'product_thumb', 'product_price', 'product_quantity', 'product_type', 'product_attributes'],
                     properties: {
                         product_name: {
                             type: 'string',
@@ -127,9 +127,9 @@ const options = {
                             type: 'integer',
                             description: 'The price of the product'
                         },
-                        product_quality: {
+                        product_quantity: {
                             type: 'integer',
-                            description: 'The quality of the product'
+                            description: 'The quantity of the product'
                         },
                         product_type: {
                             type: 'string',
@@ -146,7 +146,7 @@ const options = {
                         product_price: 12345.000,
                         product_type: "Clothing",
                         product_thumb: "https://tiger01042023.s5.ap-southeast-1.amazonaws.com/PNG+image.png",
-                        product_quality: 23,
+                        product_quantity: 23,
                         product_attributes: {
                             brand: "TTF",
                             size: "XL",
