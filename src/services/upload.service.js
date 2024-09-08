@@ -1,19 +1,24 @@
 const cloudinary = require('../configs/config.cloudinary')
 
-const uploadImageFromUrl = async() => {
-    try {
-        const urlImage = 'https://mixkit.imgix.net/art/399/399-original.png-1000h.png'
-        const folderName = '/products/shopId', newFileName = 'demo.jpg'
-
-        const result = await cloudinary.uploader.upload(urlImage, {
-            public_id: newFileName,
-            folder: folderName
-        })
-
-        console.log(result)
-    } catch (e) {
-        console.error(e)
+class UploadService {
+    static  uploadImageFromUrl = async () => {
+        try {
+            const urlImage = 'https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lgurcl7xiwab80'
+            const folderName = '/products/8409', newFileName = 'demo'
+    
+            const result = await cloudinary.uploader.upload(urlImage, {
+                public_id: newFileName,
+                folder: folderName
+            })
+    
+            console.log(result)
+            return result
+        } catch (e) {
+            console.error(e)
+        }
     }
 }
 
-uploadImageFromUrl().catch()
+module.exports = {
+    UploadService
+}

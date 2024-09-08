@@ -1,12 +1,12 @@
 const cloudinary = require('cloudinary').v2;
-const {cloudinaryConfig: {api_key, api_secret}} = require('./config')
+const {cloudinaryConfig: {cloud_name, api_key, api_secret}} = require('./config')
 
 // return https url setting secure: true
 cloudinary.config({
-    cloud_name: 'dhjksy2oy',
+    cloud_name: cloud_name ||'penguincdn',
     // secure: true,
-    api_key: api_key || '474538614261583',
-    api_secret: api_secret || 'dZl8RfGQVNRRnHFPk5G8-NgDt5g'
+    api_key: api_key,
+    api_secret: api_secret
 })
 
 // log the configuration
