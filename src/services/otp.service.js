@@ -1,6 +1,12 @@
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
 const _Otp = require('../models/otp.model')
 const {BusinessLogicError} = require("../core/error.response");
+
+const generatorTokenRandom = () => {
+    const token = crypto.randomInt(0, Math.pow(2, 32))
+    return token
+}
 
 let that = module.exports = {
     insertOtp: async ({

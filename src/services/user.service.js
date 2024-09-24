@@ -17,32 +17,99 @@ class UserService {
     registerUser = async ({
         email = null,
         // captcha = null
-                          }) => {
-        // 1 check email exists in dbs
-        const user = await userModel.findOne({email}).lean()
+    }) => {
+        try {
+            // 1 check email exists in dbs
+            const user = await userModel.findOne({email}).lean()
 
-        // 2. if exists
-        if (user) {
-            return new BusinessLogicError('Email already exists')
+            // 2. if exists
+            if (user) {
+                return new BusinessLogicError('Email already exists')
+            }
+
+            // 3. send token via email user
+            // const result = await this.sendEmailToken({
+            //     email
+            // }
+
+            const passwordHash = await bcrypt.hash(email, 10)
+
+            const newUser = await userModel.create({
+                usr_id: 1001,
+                usr_name: email,
+                usr_slug: 'xxxx',
+                usr_email: email,
+                usr_password: passwordHash,
+                usr_salt: 10,
+            })
+
+            console.log("New user: ", newUser)
+
+            // create private key, public key
+            const {
+                publicKey,
+                privateKey,
+            } = crypto.generateKeyPairSync('rsa', {
+                modulusLength: 4096,
+                publicKeyEncoding: {
+                    type: 'pkcs1',
+                    format: 'pem',
+                },
+                privateKeyEncoding: {
+                    type: 'pkcs1',
+                    format: 'pem',
+                },
+            });
+            console.log(privateKey, '---', publicKey)
+
+            const publicKeyString = await KeyTokenService.createKeyToken({
+                userId: newUser.usr_id,
+                publicKey: publicKey.toString(),
+                privateKey: privateKey.toString(),
+            })
+
+            if (!publicKeyString) {
+                throw new BusinessLogicError(i18n.translate('messages.error005'))
+            }
+            console.log('publicKeyString:: ', publicKeyString)
+
+            // create pub
+            const publicKeyObject = await crypto.createPublicKey(publicKeyString)
+            console.log('publicKeyObject:: ', publicKeyObject)
+
+            // created token pair
+            const tokens = await createTokenPair(
+                {
+                    userId: newUser.usr_id,
+                    email
+                },
+                publicKeyObject,
+                privateKey
+            )
+
+            console.log('Created token success:: ', tokens)
+            // apiKey
+            const newKey = await apiKeyModel.create({
+                key: crypto.randomBytes(64).toString('hex'), permission: ['0000']
+            })
+
+            return {
+                user: getInfoData(
+                    {
+                        fields: ['usr_id', 'usr_email', 'usr_phone'],
+                        object: newUser
+                    }
+                ),
+                tokens,
+                key: getInfoData(
+                    {
+                        fields: ['key'],
+                        object: newKey
+                    })
+            }
+        } catch (e) {
+            throw e
         }
-
-        // 3. send token via email user
-        const result = await this.sendEmailToken({
-            email
-        })
-        // const passwordHash = await bcrypt.hash(password, 10)
-
-        // const newUser = await userModel.create({
-        //     usr_id: crypto.randomUUID(),
-        //     usr_name: fullname,
-        //     usr_slug: 'xxxx',
-        //     usr_email: email,
-        //     usr_password: passwordHash,
-        //     usr_salt: 10,
-
-        // })
-
-        return OK
     }
 
     sendEmailToken = async ({email}) => {
@@ -162,7 +229,7 @@ class UserService {
             })
 
             return {
-                shop: getInfoData(
+                user: getInfoData(
                     {
                         fields: ['usr_id', 'usr_email', 'usr_phone'],
                         object: newUser

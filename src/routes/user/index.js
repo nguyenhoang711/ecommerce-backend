@@ -4,7 +4,7 @@ const userController = require('../../controllers/user.controller')
 
 router.post('/register', userController.registerUser)
 
-router.post('/verify-token', userController.checkLoginEmailToken)
+router.get('/verify-token', userController.checkLoginEmailToken)
 
 // router
 module.exports = router

@@ -6,7 +6,7 @@ const {db: {host, name, port, username, password}} = require('./config')
 const connectString = `mongodb://${username}:${password}@${host}:${port}/${name}?authSource=admin`;
 const {countConnect} = require('../helpers/check.connect');
 const MAX_POLL_SIZE = 50;
-const TIME_OUT_CONNECT = 4000;
+const TIME_OUT_CONNECT = 6000;
 
 mongoose.set('strictQuery', true);
 

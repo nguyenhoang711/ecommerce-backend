@@ -43,7 +43,14 @@ const searchProductByUser = async({keySearch}) => {
 
 const findAllProducts = async({limit, sort, page, filter, select}) => {
     const skip = (page - 1) * limit
-    const sortBy = sort === 'ctime' ? {_id: -1} : {_id: 1}
+    let sortBy
+    if (sort === 'time') {
+        sortBy = {_id: -1}
+    } else if (sort === 'price') {
+        sortBy = {product_price: 1}
+    } else if (sort === 'name') {
+        sortBy = {product_name: 1}
+    }
     return await product.find(filter)
         .sort(sortBy)
         .skip(skip)
