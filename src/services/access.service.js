@@ -130,9 +130,8 @@ class AccessService {
 
         // get user info
         const shop = getInfoData({ fields: ['_id', 'name', 'email', 'password', 'roles'], object: foundShop})
-        console.log(shop)
         return {
-            id: shop.id,
+            id: shop._id,
             username: shop.name,
             firstName: shop.name,
             lastName: shop.name,

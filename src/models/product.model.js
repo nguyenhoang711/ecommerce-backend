@@ -3,9 +3,9 @@ const slugify = require('slugify')
 
 const DOCUMENT_NAME = 'Product';
 const COLLECTION_NAME = 'Products';
-const COLLECTION_CLOTHING_NAME = 'Clothings';
-const COLLECTION_ELECTRON_NAME = 'Electrons';
-const COLLECTION_FURNITURE_NAME = 'Furnitures';
+// const COLLECTION_CLOTHING_NAME = 'Clothings';
+// const COLLECTION_ELECTRON_NAME = 'Electrons';
+// const COLLECTION_FURNITURE_NAME = 'Furnitures';
 
 const productSchema = new mongoose.Schema({
     product_name: {
@@ -33,15 +33,28 @@ const productSchema = new mongoose.Schema({
     product_type: {
         type: String,
         required: true,
-        enum: ["Electronics", "Clothing", "Furniture"]
+        enum: ["Áo thun", "Áo sơ mi", "Hoodies", "Áo khoác", "Quần jean", "Áo polo", "Vớ/Tất", "Quần dài", "Dày"]
+        // enum: ["Clothing", "Electronics", "Furniture"],
     },
     product_shop: {
         type: Schema.Types.ObjectId,
         ref: 'Shop'
     },
-    product_attributes: {
-        type: Schema.Types.Mixed,
-        required: true
+    // product_attributes: {
+    //     type: Schema.Types.Mixed,
+    //     required: true
+    // },
+    product_brand: {
+        type: Schema.Types.String,
+        required: true,
+    },
+    product_size: {
+        type: Schema.Types.String,
+        required: true,
+    },
+    product_material: {
+        type: Schema.Types.String,
+        required: true,
     },
     // more
     product_ratingsAverage: {
@@ -72,44 +85,44 @@ const productSchema = new mongoose.Schema({
     collection: COLLECTION_NAME
 });
 
-const electronicsSchema = new Schema({
-    manufacturer: { type: String, required: true},
-    model: String,
-    color: String,
-    product_shop: {
-        type: Schema.Types.ObjectId,
-        ref: 'Shop'
-    }
-}, {
-    collection: COLLECTION_ELECTRON_NAME,
-    timestamps: true
-})
+// const electronicsSchema = new Schema({
+//     manufacturer: { type: String, required: true},
+//     model: String,
+//     color: String,
+//     product_shop: {
+//         type: Schema.Types.ObjectId,
+//         ref: 'Shop'
+//     }
+// }, {
+//     collection: COLLECTION_ELECTRON_NAME,
+//     timestamps: true
+// })
 
-const clothingSchema = new Schema({
-    brand: { type: String, required: true},
-    size: String,
-    material: String,
-    product_shop: {
-        type: Schema.Types.ObjectId,
-        ref: 'Shop'
-    }
-}, {
-    collection: COLLECTION_CLOTHING_NAME,
-    timestamps: true
-})
+// const clothingSchema = new Schema({
+//     brand: { type: String, required: true},
+//     size: String,
+//     material: String,
+//     product_shop: {
+//         type: Schema.Types.ObjectId,
+//         ref: 'Shop'
+//     }
+// }, {
+//     collection: COLLECTION_CLOTHING_NAME,
+//     timestamps: true
+// })
 
-const furnitureSchema  = new Schema({
-    brand: { type: String, required: true},
-    size: String,
-    material: String,
-    product_shop: {
-        type: Schema.Types.ObjectId,
-        ref: 'Shop'
-    }
-}, {
-    collection: COLLECTION_FURNITURE_NAME,
-    timestamps: true
-})
+// const furnitureSchema  = new Schema({
+//     brand: { type: String, required: true},
+//     size: String,
+//     material: String,
+//     product_shop: {
+//         type: Schema.Types.ObjectId,
+//         ref: 'Shop'
+//     }
+// }, {
+//     collection: COLLECTION_FURNITURE_NAME,
+//     timestamps: true
+// })
 
 // create index for search
 productSchema.index({
@@ -125,7 +138,7 @@ productSchema.pre('save', function (next) {
 
 module.exports = {
     product: mongoose.model(DOCUMENT_NAME, productSchema),
-    electronic: mongoose.model("Electronic", electronicsSchema),
-    clothing: mongoose.model("Clothing", clothingSchema),
-    furniture: mongoose.model("Furniture", furnitureSchema)
+    // electronic: mongoose.model("Electronic", electronicsSchema),
+    // clothing: mongoose.model("Clothing", clothingSchema),
+    // furniture: mongoose.model("Furniture", furnitureSchema)
 }

@@ -18,6 +18,10 @@ const shopSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    avatar: {
+        type: String,
+        required: false
+    },
     msisdn: {
         type: String,
         required: true

@@ -41,7 +41,14 @@ class Api404Error extends BaseError {
     }
 }
 
+class Api400Error extends BaseError {
+    constructor(message = ReasonPhrases.BAD_REQUEST, errors = [], status = StatusCodes.BAD_REQUEST, isOperational = true) {
+        super(message, status, errors, isOperational);
+    }
+}
+
 module.exports = {
+    Api400Error,
     Api401Error,
     Api403Error,
     Api404Error,
