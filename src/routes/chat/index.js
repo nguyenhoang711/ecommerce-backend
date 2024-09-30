@@ -5,7 +5,7 @@ const {authenticationV2} = require("../../auth/authUtils");
 
 // router.use(authenticationV2)
 router.post('', messageController.pushMessage)
-router.get('',  messageController.getAllMessages)
+router.get('/all',  messageController.getAllMessages)
 
 
 // router

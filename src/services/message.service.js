@@ -1,6 +1,7 @@
 const { Api400Error } = require("../core/error.response")
 const { modelC } = require('../configs/config.gemini')
-const messageModel = require('../models/chat.model')
+const { chat } = require('../models/chat.model')
+const { queryUser } = require("../models/repositories/chat.repo")
 async function runChat(userInput) {
     const generationConfig = {
         temperature: 1,
@@ -38,15 +39,23 @@ class MessageService {
     ) => {
         try {
             const userInput = payload.message.value
+            await chat.create({
+                from: payload.from,
+                to: payload.to,
+                message: {
+                    type: 'text',
+                    value: userInput
+                }
+            })
             console.log("Incoming / chat req: ", userInput)
             if(!userInput) throw new Api400Error("Invalid message")
             
             const response = await runChat(userInput)
 
-            return await messageModel.create({
-                message_from: payload.to,
-                message_to: payload.from,
-                message_content: {
+            return await chat.create({
+                from: payload.to,
+                to: payload.from,
+                message: {
                     type: 'text',
                     value: response
                 }
@@ -62,11 +71,9 @@ class MessageService {
         try {    
             const { from } = payload;
             if(!from) throw new Api400Error('Lack of sender and receiver info')
-            const message = await messageModel.find({
-                message_from: from,
-                message_to: from,
-            }).sort({sendOn: 1})
-            return message
+            const query = {$or: [{from: from}, {to: from}]}
+            const messages = await queryUser({query})
+            return messages
         } catch (e) {
             console.error(e)
         }

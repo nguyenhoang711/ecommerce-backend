@@ -6,7 +6,7 @@ class UploadController {
         CREATED(res, "Push message success", await MessageService.pushMessage(req.body))
     })
     getAllMessages = catchAsync(async (req, res) => {
-        OK(res, "Get all message success", await MessageService.getAllMessages(req.body))
+        OK(res, "Get all message success", await MessageService.getAllMessages(req.query))
     })
 }
 
