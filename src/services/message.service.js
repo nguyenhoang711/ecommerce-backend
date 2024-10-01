@@ -38,7 +38,7 @@ class MessageService {
         payload
     ) => {
         try {
-            const userInput = payload.message.value
+            const userInput = payload.value
             await chat.create({
                 from: payload.from,
                 to: payload.to,
@@ -59,7 +59,7 @@ class MessageService {
                     type: 'text',
                     value: response
                 }
-            }); 
+            });
         } catch (e) {
             console.error(e)
         }
