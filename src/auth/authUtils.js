@@ -14,19 +14,31 @@ const HEADER = {
 
 const createTokenPair = async (payload, publicKey, privateKey) => {
     try {
+        //C1: with RSA and JWT
+        // // auth token
+        // const accessToken = await JWT.sign(payload, privateKey, {
+        //     algorithm: 'RS256',
+        //     expiresIn: '1 days'
+        // })
+
+        // // refresh token
+        // const refreshToken = await JWT.sign(payload, privateKey, {
+        //     algorithm: 'RS256',
+        //     expiresIn: '2 days'
+        // })
+
+        // C2: 2 separate privateKeys
         // auth token
-        const accessToken = await JWT.sign(payload, privateKey, {
-            algorithm: 'RS256',
+        const accessToken = await JWT.sign(payload, publicKey, {
             expiresIn: '1 days'
         })
 
         // refresh token
         const refreshToken = await JWT.sign(payload, privateKey, {
-            algorithm: 'RS256',
             expiresIn: '2 days'
         })
 
-        // verify key
+        // verify key: use when user send token to server
         verifyJwt(accessToken, publicKey, (err, decode) => {
             if (err) {
                 console.error(`error verify:: `, err)

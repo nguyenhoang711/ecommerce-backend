@@ -208,9 +208,9 @@ class UserService {
             }
             console.log('publicKeyString:: ', publicKeyString)
 
-            // create pub
-            const publicKeyObject = await crypto.createPublicKey(publicKeyString)
-            console.log('publicKeyObject:: ', publicKeyObject)
+            // // create pub
+            // const publicKeyObject = await crypto.createPublicKey(publicKeyString)
+            // console.log('publicKeyObject:: ', publicKeyObject)
 
             // created token pair
             const tokens = await createTokenPair(
@@ -218,7 +218,8 @@ class UserService {
                     userId: newUser.usr_id,
                     email
                 },
-                publicKeyObject,
+                publicKeyString,
+                // publicKeyObject,
                 privateKey
             )
 

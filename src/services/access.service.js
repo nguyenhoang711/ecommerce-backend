@@ -90,11 +90,11 @@ class AccessService {
      * @returns {Promise<void>}
      */
     singIn = async ({username, password}) => {
-        // 1.
+        // 1. check shop registered or not
         const foundShop = await findByEmail({email: username})
         if (!foundShop) throw new Api403Error(i18n.translate('messages.error002'))
 
-        // 2.
+        // 2. compare encrypt password
         const match = bcrypt.compare(password, foundShop.password)
         if (!match) throw new BusinessLogicError(i18n.translate('messages.error003'))
 
@@ -161,46 +161,60 @@ class AccessService {
             return null
         }
 
-        // create private key, public key
-        const {
-            publicKey,
-            privateKey,
-        } = crypto.generateKeyPairSync('rsa', {
-            modulusLength: 4096,
-            publicKeyEncoding: {
-                type: 'pkcs1',
-                format: 'pem',
-            },
-            privateKeyEncoding: {
-                type: 'pkcs1',
-                format: 'pem',
-            },
-        });
-        console.log(privateKey, '---', publicKey)
+        // privateKey as privateKey2 to encode and verify refreshToken
+        const privateKey1 = crypto.randomBytes(64).toString('hex')
+        const privateKey2 = crypto.randomBytes(64).toString('hex')
+        // // create private key, public key with RSA
+        // const {
+        //     publicKey,
+        //     privateKey,
+        // } = crypto.generateKeyPairSync('rsa', {
+        //     modulusLength: 4096,
+        //     publicKeyEncoding: {
+        //         type: 'pkcs1',
+        //         format: 'pem',
+        //     },
+        //     privateKeyEncoding: {
+        //         type: 'pkcs1',
+        //         format: 'pem',
+        //     },
+        // });
+        // console.log(privateKey, '---', publicKey)
+        console.log(privateKey1, '---', privateKey2)
 
-        const publicKeyString = await KeyTokenService.createKeyToken({
-            userId: newShop._id,
-            publicKey: publicKey.toString(),
-            privateKey: privateKey.toString(),
-        })
+        // const publicKeyString = await KeyTokenService.createKeyToken({
+        //     userId: newShop._id,
+        //     publicKey: publicKey.toString(),
+        //     privateKey: privateKey.toString(),
+        // })
 
-        if (!publicKeyString) {
-            throw new BusinessLogicError(i18n.translate('messages.error005'))
-        }
-        console.log('publicKeyString:: ', publicKeyString)
+        // if (!publicKeyString) {
+        //     throw new BusinessLogicError(i18n.translate('messages.error005'))
+        // }
+        // console.log('publicKeyString:: ', publicKeyString)
 
-        // create pub
-        const publicKeyObject = await crypto.createPublicKey(publicKeyString)
-        console.log('publicKeyObject:: ', publicKeyObject)
+        // // create public key to verify token with RSA
+        // const publicKeyObject = await crypto.createPublicKey(publicKeyString)
+        // console.log('publicKeyObject:: ', publicKeyObject)
 
-        // created token pair
+        // // created token pair with RSA
+        // const tokens = await createTokenPair(
+        //     {
+        //         userId: newShop._id,
+        //         email
+        //     },
+        //     publicKeyObject,
+        //     privateKey
+        // )
+
+        // created token pair with 2 separate private keys
         const tokens = await createTokenPair(
             {
                 userId: newShop._id,
                 email
             },
-            publicKeyObject,
-            privateKey
+            privateKey1,
+            privateKey2
         )
 
         console.log('Created token success:: ', tokens)

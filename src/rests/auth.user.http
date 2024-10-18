@@ -1,0 +1,13 @@
+@baseUrl=http://localhost:3055/api/v1/auth
+
+### user sign up
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+    "name": "Shop DEVPenguin",
+    "email": "penguinnguyen1773@gmail.com",
+    "password": "123456@abc",
+    "msisdn": "00123456789"
+}
+

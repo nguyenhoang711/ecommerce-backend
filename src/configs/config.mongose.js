@@ -1,12 +1,13 @@
 'use strict'
 
 const mongoose = require('mongoose');
-const {db: {host, name, port, username, password}} = require('./config')
+// const {db: {host, name, port, username, password}} = require('./config')
+const {db: {host, name, port}} = require('./config')
 
 const connectString = `mongodb://${host}:${port}/${name}`;
 const {countConnect} = require('../helpers/check.connect');
 const MAX_POLL_SIZE = 50;
-const TIME_OUT_CONNECT = 6000;
+const TIME_OUT_CONNECT = 7000;
 
 mongoose.set('strictQuery', true);
 

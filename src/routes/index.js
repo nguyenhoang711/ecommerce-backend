@@ -20,6 +20,5 @@ router.use('/api/v1/upload', require('./upload'))
 router.use('/api/v1/comment', require('./comment'))
 router.use('/api/v1/auth', require('./auth'))
 router.use('/api/v1/user', require('./user'))
-router.use('/api/v1/chat', require('./chat'))
 
 module.exports = router
