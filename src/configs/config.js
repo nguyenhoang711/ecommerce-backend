@@ -66,6 +66,7 @@ const config = {
         }
     },
     cloudinaryConfig: {
+        enable: process.env.CLOUDINARY_ENABLE,
         cloud_name: process.env.CLOUDINARY_NAME,
         api_key: process.env.CLOUDINARY_API_KEY,
         api_secret: process.env.CLOUDINARY_API_SECRET,
@@ -75,10 +76,6 @@ const config = {
         api_key: process.env.CLOUDINARY_API_KEY,
         api_secret: process.env.CLOUDINARY_API_SECRET,
     },
-    gemini: {
-        api_key: process.env.GEMINI_API_KEY,
-        model: process.env.GEMINI_MODEL
-    }
 }
 
 module.exports = config
