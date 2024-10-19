@@ -33,7 +33,7 @@ class KeyTokenService {
     }
 
     static removeKeyById = async (id) => {
-        return await keyTokenModel.remove(id)
+        return await keyTokenModel.findByIdAndDelete(id)
     }
 
     static findByRefreshTokenUsed = async (refreshToken) => {

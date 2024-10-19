@@ -14,9 +14,17 @@ Content-Type: application/json
 ### user sign in
 POST {{baseUrl}}/login
 Content-Type: application/json
-x-api-key: 4aa5f1a70cfa72538f884747fdc1d16eeb1925c728dcd622a7d250881c32bbfc66924b1d659076f66682040be0339a96ddb0bb238fe413796028de3f73f0f56e
+x-api-key: bdf80b0be28b4f8c39471e5b9b2561d39a0c21d132faaef46e260322b369839c1a88b7e6b5e7f1ba1342c00fcdbc2ded3729b4a9cdd33b52e01b94e756dc7b23
 
 {
     "username": "penguinnguyen177@gmail.com",
     "password": "123456@abc"
 }
+
+
+### user logout
+POST {{baseUrl}}/logout
+Content-Type: application/json
+x-api-key: bdf80b0be28b4f8c39471e5b9b2561d39a0c21d132faaef46e260322b369839c1a88b7e6b5e7f1ba1342c00fcdbc2ded3729b4a9cdd33b52e01b94e756dc7b23
+x-client-id: 6713f29abab601f27f99e44e
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzEzZjI5YWJhYjYwMWYyN2Y5OWU0NGUiLCJ1c2VybmFtZSI6InBlbmd1aW5uZ3V5ZW4xNzdAZ21haWwuY29tIiwiaWF0IjoxNzI5MzYxMTc1LCJleHAiOjE3Mjk0NDc1NzV9.SE7AaCV6ufOIwWEUZ8mUD6bQVOv8BEAkdukPz9QdyxE

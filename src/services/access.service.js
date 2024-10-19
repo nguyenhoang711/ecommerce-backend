@@ -142,8 +142,8 @@ class AccessService {
 
         await KeyTokenService.createKeyToken({
             userId: userId.toString(),
-            privateKey1,
-            privateKey2,
+            publicKey: privateKey1,
+            privateKey: privateKey2,
             refreshToken: tokens.refreshToken,
         })
 
@@ -227,14 +227,14 @@ class AccessService {
         // )
 
         // created token pair with 2 separate private keys
-        const tokens = await createTokenPair(
-            {
+        const tokens = await createTokenPair({
+            payload: {
                 userId: newShop._id,
                 email
             },
-            privateKey1,
-            privateKey2
-        )
+            publicKey: privateKey1,
+            privateKey: privateKey2
+        })
 
         console.log('Created token success:: ', tokens)
         // apiKey
