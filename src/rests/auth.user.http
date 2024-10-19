@@ -6,8 +6,17 @@ Content-Type: application/json
 
 {
     "name": "Shop DEVPenguin",
-    "email": "penguinnguyen1773@gmail.com",
+    "email": "penguinnguyen177@gmail.com",
     "password": "123456@abc",
     "msisdn": "00123456789"
 }
 
+### user sign in
+POST {{baseUrl}}/login
+Content-Type: application/json
+x-api-key: 4aa5f1a70cfa72538f884747fdc1d16eeb1925c728dcd622a7d250881c32bbfc66924b1d659076f66682040be0339a96ddb0bb238fe413796028de3f73f0f56e
+
+{
+    "username": "penguinnguyen177@gmail.com",
+    "password": "123456@abc"
+}

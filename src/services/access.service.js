@@ -98,33 +98,52 @@ class AccessService {
         const match = bcrypt.compare(password, foundShop.password)
         if (!match) throw new BusinessLogicError(i18n.translate('messages.error003'))
 
-        // 3. create private key, public key
-        const {
-            publicKey,
-            privateKey,
-        } = crypto.generateKeyPairSync('rsa', {
-            modulusLength: 4096,
-            publicKeyEncoding: {
-                type: 'pkcs1',
-                format: 'pem',
-            },
-            privateKeyEncoding: {
-                type: 'pkcs1',
-                format: 'pem',
-            },
-        });
+        // privateKey as privateKey2 to encode and verify refreshToken
+        const privateKey1 = crypto.randomBytes(64).toString('hex')
+        const privateKey2 = crypto.randomBytes(64).toString('hex')
+
+        // // 3. create private key, public key with RSA
+        // const {
+        //     publicKey,
+        //     privateKey,
+        // } = crypto.generateKeyPairSync('rsa', {
+        //     modulusLength: 4096,
+        //     publicKeyEncoding: {
+        //         type: 'pkcs1',
+        //         format: 'pem',
+        //     },
+        //     privateKeyEncoding: {
+        //         type: 'pkcs1',
+        //         format: 'pem',
+        //     },
+        // });
 
         // 4. generate tokens
+        // // with RSA + JWT
+        // const {_id: userId} = foundShop
+        // const tokens = await createTokenPair({
+        //     userId: userId.toString(),
+        //     username
+        // }, publicKey, privateKey)
+
+        // await KeyTokenService.createKeyToken({
+        //     userId: userId.toString(),
+        //     privateKey,
+        //     publicKey,
+        //     refreshToken: tokens.refreshToken,
+        // })
+        
+        //with two separate privateKey
         const {_id: userId} = foundShop
         const tokens = await createTokenPair({
             userId: userId.toString(),
             username
-        }, publicKey, privateKey)
+        }, privateKey1, privateKey2)
 
         await KeyTokenService.createKeyToken({
             userId: userId.toString(),
-            privateKey,
-            publicKey,
+            privateKey1,
+            privateKey2,
             refreshToken: tokens.refreshToken,
         })
 
@@ -220,7 +239,7 @@ class AccessService {
         console.log('Created token success:: ', tokens)
         // apiKey
         const newKey = await apiKeyModel.create({
-            key: crypto.randomBytes(64).toString('hex'), permission: ['0000']
+            key: crypto.randomBytes(64).toString('hex'), permissions: ['0000']
         })
 
         return {
