@@ -103,8 +103,8 @@ app.use(logErrorMiddleware)
 app.use(returnError)
 
 // init factory
-// const productFactories = require('./factories/products')
-// console.log(productFactories)
+const productFactories = require('./factories/products')
+console.log(productFactories)
 const notifyFactories = require('./factories/notifications');
 const { db } = require('./models/comment.model');
 console.log(notifyFactories)

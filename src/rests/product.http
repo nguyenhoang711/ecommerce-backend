@@ -1,0 +1,43 @@
+@baseUrl= http://localhost:3055/api/v1/product
+
+### create product
+POST {{baseUrl}}
+Content-Type: application/json
+x-api-key: 544f90267c78caad32b573091166d5562eccc4fd967ed5bb5d2563bbdbcdc394e508d327153fb78d1b2030860d0f974a2908e2ee7e523e78d63f26c3a998a18b
+x-client-id: 6715370854c1eebbb3d96a21
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzE1MzcwODU0YzFlZWJiYjNkOTZhMjEiLCJ1c2VybmFtZSI6InBlbmd1aW5uZ3V5ZW4xNzdAZ21haWwuY29tIiwiaWF0IjoxNzI5NDQzNjExLCJleHAiOjE3Mjk1MzAwMTF9.ZltkNzy8N5iiXmcmSu30CaXjcR5Wf3lOBYo4vxUuW98
+
+{
+  "product_name": "New Jeans",
+  "product_description": "High-quality Jeans",
+  "product_price": 40,
+  "product_type": "Clothing",
+  "product_thumb": "product_thumb", 
+  "product_quantity": 5,
+  "product_attributes": {
+    "brand": "Levi's",
+    "size": "X",
+    "material": "ML2023_TX"
+  }
+}
+
+### create new furniture
+POST {{baseUrl}}
+Content-Type: application/json
+x-api-key: 544f90267c78caad32b573091166d5562eccc4fd967ed5bb5d2563bbdbcdc394e508d327153fb78d1b2030860d0f974a2908e2ee7e523e78d63f26c3a998a18b
+x-client-id: 6715370854c1eebbb3d96a21
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzE1MzcwODU0YzFlZWJiYjNkOTZhMjEiLCJ1c2VybmFtZSI6InBlbmd1aW5uZ3V5ZW4xNzdAZ21haWwuY29tIiwiaWF0IjoxNzI5NDQzNjExLCJleHAiOjE3Mjk1MzAwMTF9.ZltkNzy8N5iiXmcmSu30CaXjcR5Wf3lOBYo4vxUuW98
+
+{
+  "product_name": "New Table",
+  "product_description": "High-quality table",
+  "product_price": 40,
+  "product_type": "Furniture",
+  "product_thumb": "product_thumbV2", 
+  "product_quantity": 5,
+  "product_attributes": {
+    "brand": "Coolmate",
+    "size": "L",
+    "material": "Synthetic Wood"
+  }
+}

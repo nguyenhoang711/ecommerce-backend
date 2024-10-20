@@ -6,7 +6,10 @@ const {removeAttrUndefined, updateNestedObjectParser} = require("../../utils");
 
 class ClothingFactory extends ProductFactory {
     async createProduct() {
-        const newClothing = await clothing.create(this.product_attributes)
+        const newClothing = await clothing.create({
+            ...this.product_attributes,
+            product_shop: this.product_shop
+        })
         if (!newClothing) {
             throw new BusinessLogicError('Create new clothing error')
         }
