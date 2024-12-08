@@ -6,8 +6,5 @@
 .idea
 .docker/data/*
 /local/
-.env
-.env.local
-.env.prod
-.env.uat
 src/uploads/*
+.env.local

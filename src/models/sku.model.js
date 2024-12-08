@@ -1,6 +1,4 @@
-
-
-const { model, Schema } = require('mongoose');
+const { model, Schema } = require("mongoose");
 
 const DOCUMENT_NAME = 'Sku'
 const COLLECTION_NAME = 'Skus'
