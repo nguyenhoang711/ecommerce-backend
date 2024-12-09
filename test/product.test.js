@@ -8,6 +8,7 @@ class ProductServiceTest {
             quantity
         }
         console.log('productId: ', productId);
+        console.log('quantity: ', quantity);
         
         redisPubSubService.publish('purchase_events', JSON.stringify(order))
     }
