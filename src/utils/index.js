@@ -46,6 +46,10 @@ const updateNestedObjectParser = obj => {
     return final
 }
 
+const randomProductId = _ => {
+    return Math.floor(Math.random() * 899999 + 100000)
+}
+
 module.exports = {
     checkEnable,
     getInfoData,
@@ -53,5 +57,6 @@ module.exports = {
     unGetSelectData,
     removeAttrUndefined,
     updateNestedObjectParser,
-    convert2ObjectId
+    convert2ObjectId,
+    randomProductId
 }

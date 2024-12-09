@@ -75,6 +75,11 @@ if (checkEnable(configs.redis.enable)) {
 const {openApi, configSwagger} = require('./configs/config.swagger')
 openApi(app)
 
+//test pub sub redis
+require('../test/inventory.test')
+const productTest = require('../test/product.test')
+productTest.purchaseProduct('product:001', 10)
+
 // init logger
 const expressWinston = require('express-winston')
 const {logger} = require('./configs/config.logger')
